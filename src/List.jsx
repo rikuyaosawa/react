@@ -1,14 +1,19 @@
-function List() {
-    const fruits = [
-        { id: 1, name: "apple" },
-        { id: 2, name: "orange" },
-        { id: 3, name: "banana" },
-    ];
+import { OrderedList, ListItem } from "@chakra-ui/react";
 
-    const listItems = fruits.map((fruit) => (
-        <li key={fruit.id}>{fruit.name}</li>
+function ItemList(props) {
+    // default props
+    const { items = [{ id: 0, name: "Peach" }], category = "None" } = props;
+
+    const listItems = items.map((item) => (
+        <ListItem key={item.id}>{item.name}</ListItem>
     ));
-    return <ol>{listItems}</ol>;
+
+    return (
+        <>
+            <h1>{category}</h1>
+            <OrderedList>{listItems}</OrderedList>
+        </>
+    );
 }
 
-export default List;
+export default ItemList;
