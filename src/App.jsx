@@ -1,9 +1,9 @@
-import BasicButton from "./Button.jsx";
+import MyComponent from "./MyComponent";
 
 function App() {
     return (
         <>
-            <BasicButton />
+            <MyComponent />
         </>
     );
 }
