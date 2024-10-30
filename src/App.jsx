@@ -1,9 +1,9 @@
-import MyComponent from "./MyComponent";
+import Todo from "./Todo.jsx";
 
 function App() {
     return (
         <>
-            <MyComponent />
+            <Todo />
         </>
     );
 }
