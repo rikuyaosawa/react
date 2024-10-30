@@ -11,18 +11,20 @@ import {
 
 function Task({ task, setTask }) {
     const toast = useToast();
-    const handleDeleteTask = (taskId) => {
+    const handleDeleteTask = (taskId, taskName) => {
         setTask((t) => t.filter((task) => task.id !== taskId));
         console.log("Task updated:", {
             type: "delete",
             taskId: taskId,
-            time: new Date().toLocaleTimeString(),
+            taskName: taskName,
+            updatedAt: new Date().toLocaleTimeString(),
         });
+
         toast({
             title: "Task successfully deleted.",
             status: "success",
             duration: 5000,
-            isClosable: true,
+            isClosable: false,
         });
     };
 
@@ -39,7 +41,9 @@ function Task({ task, setTask }) {
                         <Spacer />
                         <Center>
                             <Button
-                                onClick={() => handleDeleteTask(task.id)}
+                                onClick={() =>
+                                    handleDeleteTask(task.id, task.name)
+                                }
                                 size="sm"
                                 bg="red.300"
                                 color="white"

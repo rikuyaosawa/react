@@ -11,27 +11,13 @@ import { useState, useEffect } from "react";
 import Task from "./Task.jsx";
 
 function Todo() {
-    const defaultTasks = [
-        {
-            id: 1,
-            name: "Eat Breakfast",
-        },
-        {
-            id: 2,
-            name: "Take a Shower",
-        },
-        {
-            id: 3,
-            name: "Walk the Dog",
-        },
-    ];
-    const [task, setTask] = useState(defaultTasks);
+    const [task, setTask] = useState([]);
     const toast = useToast();
 
     const handleAddTask = () => {
         const newTask = document.getElementById("add-task").value;
 
-        if (newTask === "") {
+        if (newTask.trim() === "") {
             toast({
                 title: "Task not added.",
                 description: "Empty task is not accepted.",
@@ -43,13 +29,17 @@ function Todo() {
         }
 
         document.getElementById("add-task").value = "";
+
         const newId = createNewRandomId();
         console.log("New ID", newId, "for the new task:", newTask);
+
         setTask((t) => [...t, { id: newId, name: newTask }]);
+
         console.log("Task updated:", {
             type: "add",
             taskId: newId,
-            time: new Date().toLocaleTimeString(),
+            taskName: newTask,
+            updatedAt: new Date().toLocaleTimeString(),
         });
 
         toast({
@@ -66,7 +56,7 @@ function Todo() {
 
     function createNewRandomId() {
         let newId;
-        const existingIdList = defaultTasks.map((task) => task.id);
+        const existingIdList = task.map((t) => t.id);
 
         if (existingIdList.length > 1000) {
             throw new Error("ID List max reached");
@@ -86,7 +76,7 @@ function Todo() {
     return (
         <Center minHeight="100vh">
             <Box textAlign="center" width="450px">
-                <Heading mb={4}>To-Do-List</Heading>
+                <Heading mb={8}>To-Do-List</Heading>
                 <Flex>
                     <Input
                         type="text"
